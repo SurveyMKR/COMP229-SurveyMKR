@@ -1,7 +1,7 @@
-import moviesModel from '../../models/movies.js'
+import surveysModel from '../../models/surveys.js'
 
 export function GetList(req, res, next){
-    moviesModel.find((err, moviesCollection) => {
+    surveysModel.find((err, surveysCollection) => {
         if(err){
             console.error(err);
             res.end(err);
@@ -10,7 +10,7 @@ export function GetList(req, res, next){
         res.json({
             success: true,
             msg: 'Success',
-            movies: moviesCollection, 
+            surveys: surveysCollection, 
             user: req.user
         });
     });
@@ -19,7 +19,7 @@ export function GetList(req, res, next){
 export function Get(req, res, next){
     let id = req.params.id;
 
-    moviesModel.findById(id, (err, movie) => {
+    surveysModel.findById(id, (err, survey) => {
         if(err){
             console.error(err);
             res.end(err);
@@ -28,28 +28,28 @@ export function Get(req, res, next){
         return res.json({
             success: true, 
             msg: 'Success',
-            movie, 
+            survey, 
             user: req.user
         })
     })
 }
 
 export function Add(req, res, next){
-    let newMovie = new moviesModel({
+    let newSurvey = new surveysModel({
         ...req.body
     });
 
-    moviesModel.create(newMovie, (err) => {
+    surveysModel.create(newSurvey, (err) => {
         if(err){
             console.error(err);
             res.end(err);
         }
 
-        // movie added successfully
+        // survey added successfully
         res.json({
             success: true, 
             msg: 'Success',
-            movie: newMovie
+            survey: newSurvey
         })
     })
 }
@@ -57,12 +57,12 @@ export function Add(req, res, next){
 export function Edit(req, res, next){
     let id = req.params.id;
 
-    let updatedMovie = new moviesModel({
+    let updatedSurvey = new surveysModel({
         "_id": id, 
         ...req.body
     });
 
-    moviesModel.updateOne({_id: id}, updatedMovie, (err) => {
+    surveysModel.updateOne({_id: id}, updatedSurvey, (err) => {
         if(err){
             console.error(err);
             res.end(err);
@@ -71,7 +71,7 @@ export function Edit(req, res, next){
         res.json({
             success: true,
             msg: 'Success',
-            movie: updatedMovie
+            survey: updatedSurvey
         })
     })
 
@@ -81,7 +81,7 @@ export function Edit(req, res, next){
 export function Delete(req, res, next){
     let id = req.params.id;
 
-    moviesModel.remove({_id: id}, (err) => {
+    surveysModel.remove({_id: id}, (err) => {
         if(err){
             console.error(err);
             res.end(err);
