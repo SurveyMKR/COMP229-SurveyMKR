@@ -6,54 +6,54 @@
             <form class="form" method="POST">
                 <input type="hidden" name="id" value="<%= survey._id %>" >
                 <div class="form-group">
-                    <label for="nameTextField">survey Title</label>
+                    <label for="questionTextField">Question</label>
                     <input type="text" class="form-control"
-                    id="nameTextField"
-                    placeholder="Enter the survey Title"
-                    name="name" 
-                    value="<%= survey.name %>"
+                    id="questionTextField"
+                    placeholder="Enter your Question"
+                    name="question" 
+                    value="<%= survey.question %>"
                     required>
                 </div>
 
                 <div class="form-group">
-                    <label for="authorTextField">Year</label>
+                    <label for="answer1TextField">Answer 1</label>
                     <input type="number" class="form-control"
-                    id="authorTextField"
-                    placeholder="Enter the Release Year"
-                    name="year" 
-                    value="<%= survey.year %>"
+                    id="abswer1TextField"
+                    placeholder="Enter Answer 1"
+                    name="answer1" 
+                    value="<%= survey.answer1 %>"
                     required>
                 </div>
 
                 <div class="form-group">
-                    <label for="publishedTextField">Director</label>
+                    <label for="answer2TextField">Answer 2</label>
                     <input type="text" class="form-control"
-                    id="publishedTextField"
-                    placeholder="Enter the Director's Name"
-                    name="director" 
-                    value="<%= survey.director %>"
+                    id="answer2TextField"
+                    placeholder="Enter Answer 2"
+                    name="answer2" 
+                    value="<%= survey.answer2 %>"
                     required>
                 </div>
 
                 <div class="form-group">
-                    <label for="descriptionTextArea">Genre</label>
+                    <label for="answer3TextArea">Answer 3</label>
                     <input type="text" class="form-control"
-                    id="descriptionTextArea"
-                    placeholder="Enter the survey genre"
-                    name="genre"                     
-                    value="<%= survey.genre %>"
+                    id="answer3TextArea"
+                    placeholder="Enter Answer 3"
+                    name="answer3"                     
+                    value="<%= survey.answer3 %>"
                     required
                     >
                     </input>
                 </div>
 
                 <div class="form-group">
-                    <label for="priceTextField">Runtime (in minutes)</label>
+                    <label for="answer4TextField">Answer 4</label>
                     <input type="number" class="form-control"
-                    id="priceTextField"
-                    placeholder="Enter the survey's Runtime in Minutes"
-                    name="runtime" 
-                    value="<%= survey.runtime %>"
+                    id="answer4TextField"
+                    placeholder="Enter Answer4"
+                    name="answer4" 
+                    value="<%= survey.answer4 %>"
                     required>
                 </div>
 

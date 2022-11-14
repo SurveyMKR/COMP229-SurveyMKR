@@ -37,10 +37,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkO
 
 {
     "name": "Titanic 2", 
-    "year": "2002", 
-    "director": "James Cameron",
-    "genre": "Romance",
-    "runtime": 300
+    "answer1": "2002", 
+    "answer2": "James Cameron",
+    "answer3": "Romance",
+    "answer4": 300
 }
 
 ###
@@ -50,10 +50,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkO
 
 {
     "name": "Titanic 2", 
-    "year": "2022", 
-    "director": "James Cameron",
-    "genre": "Horror",
-    "runtime": 600
+    "answer1": "2022", 
+    "answer2": "James Cameron",
+    "answer3": "Horror",
+    "answer4": 600
 }
 
 ###
