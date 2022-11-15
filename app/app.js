@@ -36,13 +36,13 @@ import { MongoURI, Secret } from '../config/config.js';
 
 // Import Routes
 import indexRouter from './routes/index.route.server.js'
-import movieRouter from './routes/movies.route.server.js';
+import surveyRouter from './routes/surveys.route.server.js';
 import authRouter from './routes/auth.route.server.js';
 
 // Import Api Routes
 
 import authApiRouter from './routes/api/auth-api.route.server.js';
-import moviesApiRouter from './routes/api/movies-api.route.server.js';
+import surveysApiRouter from './routes/api/surveys-api.route.server.js';
 
 // Instantiate Express Application
 const app = express();
@@ -111,11 +111,11 @@ passport.use(strategy);
 
 // Use Routes
 app.use('/', indexRouter);
-app.use('/', movieRouter);
+app.use('/', surveyRouter);
 app.use('/', authRouter);
 
 // Use API Routes
 app.use('/api/auth', authApiRouter);
-app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesApiRouter);
+app.use('/api/surveys', passport.authenticate('jwt', {session: false}), surveysApiRouter);
 
 export default app;

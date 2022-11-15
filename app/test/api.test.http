@@ -1,62 +1,62 @@
-POST http://localhost:3000/api/auth/login HTTP/1.1
-content-type: application/json
+# POST http://localhost:3000/api/auth/login HTTP/1.1
+# content-type: application/json
 
-{
-    "username": "dcultard",
-    "password": "123456"
-}
+# {
+#     "username": "dcultard",
+#     "password": "123456"
+# }
 
-###
-POST http://localhost:3000/api/auth/register HTTP/1.1
-content-type: application/json
+# ###
+# POST http://localhost:3000/api/auth/register HTTP/1.1
+# content-type: application/json
 
-{
-    "username": "mschumacher",
-    "password": "123456",
-    "emailAddres": "mschumacher@f1.com",
-    "displayName": "Michael Schumacher"
-}
+# {
+#     "username": "mschumacher",
+#     "password": "123456",
+#     "emailAddres": "mschumacher@f1.com",
+#     "displayName": "Michael Schumacher"
+# }
 
-###
-GET http://localhost:3000/api/auth/logout HTTP/1.1
-content-type: application/json
+# ###
+# GET http://localhost:3000/api/auth/logout HTTP/1.1
+# content-type: application/json
 
 
-###
-GET http://localhost:3000/api/movies/list HTTP/1.1
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
-###
-GET http://localhost:3000/api/movies/635338e3b855f51cfa4a32fd HTTP/1.1
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
-###
-POST http://localhost:3000/api/movies/add HTTP/1.1
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
+# ###
+# GET http://localhost:3000/api/surveys/list HTTP/1.1
+# content-type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
+# ###
+# GET http://localhost:3000/api/surveys/635338e3b855f51cfa4a32fd HTTP/1.1
+# content-type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
+# ###
+# POST http://localhost:3000/api/surveys/add HTTP/1.1
+# content-type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
 
-{
-    "name": "Titanic 2", 
-    "year": "2002", 
-    "director": "James Cameron",
-    "genre": "Romance",
-    "runtime": 300
-}
+# {
+#     "question": "Titanic 2", 
+#     "answer1": "2002", 
+#     "answer2": "James Cameron",
+#     "answer3": "Romance",
+#     "answer4": 300
+# }
 
-###
-PUT http://localhost:3000/api/movies/edit/63533b3b6ec77d14ea33eb95 HTTP/1.1
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
+# ###
+# PUT http://localhost:3000/api/surveys/edit/63533b3b6ec77d14ea33eb95 HTTP/1.1
+# content-type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
 
-{
-    "name": "Titanic 2", 
-    "year": "2022", 
-    "director": "James Cameron",
-    "genre": "Horror",
-    "runtime": 600
-}
+# {
+#     "question": "Titanic 2", 
+#     "answer1": "2022", 
+#     "answer2": "James Cameron",
+#     "answer3": "Horror",
+#     "answer4": 600
+# }
 
-###
-DELETE http://localhost:3000/api/movies/delete/635338e3b855f51cfa4a32fd HTTP/1.1
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
+# ###
+# DELETE http://localhost:3000/api/surveys/delete/635338e3b855f51cfa4a32fd HTTP/1.1
+# content-type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTMzMDhkOTUwOWUyMDFmOWJkM2FiNCIsImRpc3BsYXlOYW1lIjoiRGF2aWQgQ3VsdGFyZCIsInVzZXJuYW1lIjoiZGN1bHRhcmQiLCJpYXQiOjE2NjYzOTg5MjUsImV4cCI6MTY2NzAwMzcyNX0.cKUi_RvdeCLDmblXF7ND_lyQ7BhRVogXgqqzi1-R3lw
