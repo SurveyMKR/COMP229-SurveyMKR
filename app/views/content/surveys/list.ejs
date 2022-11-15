@@ -28,11 +28,11 @@
                     <% for(let count = 0; count < surveys.length; count++) { %>
                         <tr>
                             <th scope="row" class="text-center"><%= count + 1 %></th>
-                            <td><%= surveys[count].question %></td>
-                            <td><%= surveys[count].answer1 %></td>
-                            <td><%= surveys[count].answer2 %></td>
-                            <td><%= surveys[count].answer3 %></td>
-                            <td><%= surveys[count].answer4 %></td>
+                            <td><%= surveys[count].questions[count].question %></td>
+                            <td><%= surveys[count].questions[count].answer1 %></td>
+                            <td><%= surveys[count].questions[count].answer2 %></td>
+                            <td><%= surveys[count].questions[count].answer3 %></td>
+                            <td><%= surveys[count].questions[count].answer4 %></td>
 
                             <% if(displayName) { %>
                             
