@@ -2,69 +2,147 @@
     <div class="row">
         <div class="offset-md-3 col-md-6">
             <h1><%= title %></h1> 
-                    <% for(let count = 0; count < survey.questions.length; count++) { %>
-                    <form class="form" method="POST">
-                        <input type="hidden" name="id" value="<%= survey._id %>" >
-                        <div class="form-group">
-                            <label for="questionTextField">Question</label>
-                            <input type="text" class="form-control"
-                            id="questionTextField"
-                            placeholder="Enter your Question"
-                            name="question" 
-                            value="<%= survey.questions[count].question %>"
-                            required>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="answer1TextField">Answer 1</label>
-                            <input type="number" class="form-control"
-                            id="abswer1TextField"
-                            placeholder="Enter Answer 1"
-                            name="answer1" 
-                            value="<%= survey.questions[count].answer1 %>"
-                            required>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="answer2TextField">Answer 2</label>
-                            <input type="text" class="form-control"
-                            id="answer2TextField"
-                            placeholder="Enter Answer 2"
-                            name="answer2" 
-                            value="<%= survey.questions[count].answer2 %>"
-                            required>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="answer3TextArea">Answer 3</label>
-                            <input type="text" class="form-control"
-                            id="answer3TextArea"
-                            placeholder="Enter Answer 3"
-                            name="answer3"                     
-                            value="<%= survey.questions[count].answer3 %>"
-                            required
-                            >
-                            </input>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="answer4TextField">Answer 4</label>
-                            <input type="number" class="form-control"
-                            id="answer4TextField"
-                            placeholder="Enter Answer4"
-                            name="answer4" 
-                            value="<%= survey.questions[count].answer4 %>"
-                            required>
-                        </div>
-        
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-edit"></i> Submit</button>
+            <form class="form" method="POST">
+                <div style="margin-top: 2%; text-align: center;">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      
+                        <label class="btn btn-secondary <%= (surveyType == 'mc') ? 'active' : ''; %>">
+                            <input type="radio" value="mc" name="options" id="option1" autocomplete="off" onclick="window.location='/survey-add/mc';" <%= (surveyType == 'mc') ? 'checked' :'' %>> 
+                                Multiple Choice
+                        </label>
+                     
+                        <label class="btn btn-secondary <%= (surveyType == 'ad') ? 'active' : ''; %>">
+                            <input type="radio" value="ad" name="options" id="option2" autocomplete="off" onclick="window.location='/survey-add/ad';" <%= (surveyType == 'ad') ? 'checked' :'' %>>
+                                Agree/Disagree
+                        </label>
                         
-                            <a href="/survey-list" class="btn btn-warning">
-                                <i class="fas fa-undo"></i> Cancel</a>
-        
-                    </form>
-                <% } %>  
+                        <label class="btn btn-secondary <%= (surveyType == 'sa') ? 'active' : ''; %>">
+                            <input type="radio" value="sa" name="options" id="option3" autocomplete="off" onclick="window.location='/survey-add/sa';" <%= (surveyType == 'sa') ? 'checked' :'' %>>
+                                Short Answer
+                        </label>
+                    </div>
+                </div>
+                <% if (surveyType) { %>
+                <div class="input-group mb-3" style="margin: 2%; margin-left: auto; margin-right: auto;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="border-top-right-radius: 0%; border-bottom-right-radius: 0%;" id="basic-addon1">Number of Questions:</span>
+                    </div>
+                        <input type="number" class="form-control" name="questionCount" min="1" placeholder="Enter desired number of Survey questions">
+                        <div onclick="window.location='<%= '/survey-add/' + surveyType + '/' + questionCount; %>'">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Confirm
+                    </button>
+                        </div>
+                </div>
+                <% } %>
+            </form>
+                <form class="form" method="POST" action="<%= '/survey-edit/' + survey._id + '/' + surveyType + '/' + questionCount %>">
+                    <input type="hidden" name="id" value="<%= survey._id %>" >
+                    <% if (questionCount) { %>
+                        <div class="input-group mb-3" style="margin: 2%; margin-left: auto; margin-right: auto;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-top-right-radius: 0%; border-bottom-right-radius: 0%;" id="basic-addon1">Survey Name:</span>
+                            </div>
+                            <input type="text" class="form-control" name="surveyName" value="<%= survey.name %>" placeholder="Enter Survey Name">
+                        </div>
+                    <% } %>
+
+                <% if (surveyType == "mc") { let j = 1; %>
+                    <% for (let i = 0; i < questionCount; i++) {  %>
+                    <div class="form-group">
+                        <label for="<%= 'question' + (i + 1) + 'TextField' %>">Question <%= i + 1 %></label>
+                        <input type="text" class="form-control"
+                        id="<%= 'question' + (i + 1) + 'TextField' %>"
+                        placeholder="Enter your Question"
+                        name="<%= 'question' + (i + 1) %>" 
+                        value="<%= survey.questions[i] %>"
+                        required>
+                        </input>
+                    </div>
+                    <div class="form-group">
+                        <label for="<%= 'answer' + j + 'TextField' %>">A</label>
+                        <input type="text" class="form-control"
+                        id="<%= 'answer' + j + 'TextField' %>"
+                        placeholder="Enter Answer"
+                        name="<%= 'answer' + j %>" 
+                        value="<%= survey.answers[j - 1] %>"
+                        required>
+                        </input>
+                        <% j++; %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="<%= 'answer' + j + 'TextField' %>">B</label>
+                        <input type="text" class="form-control"
+                        id="<%= 'answer' + j + 'TextField' %>"
+                        placeholder="Enter Answer"
+                        name="<%= 'answer' + j %>" 
+                        value="<%= survey.answers[j - 1] %>"
+                        required>
+                        </input>
+                        <% j++; %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="<%= 'answer' + j + 'TextField' %>">C</label>
+                        <input type="text" class="form-control"
+                        id="<%= 'answer' + j + 'TextField' %>"
+                        placeholder="Enter Answer"
+                        name="<%= 'answer' + j %>"  
+                        value="<%= survey.answers[j - 1] %>"                   
+                        required>
+                        </input>
+                        <% j++; %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="<%= 'answer' + j + 'TextField' %>">D</label>
+                        <input type="text" class="form-control"
+                        id="<%= 'answer' + j + 'TextField' %>"
+                        placeholder="Enter Answer"
+                        name="<%= 'answer' + j %>" 
+                        value="<%= survey.answers[j - 1] %>"
+                        required>
+                        </input>
+                        <% j++; %>
+                    </div>
+            
+                    <% } %>
+                    <div style="margin-top: 2%; text-align: center;">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-edit"></i> Save Survey
+                        </button>
+                        <a href="/survey-list" class="btn btn-warning">
+                            <i class="fas fa-undo"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+                <% } %>
+                <% if (surveyType == "ad" || surveyType == "sa") { %>
+                    <% for (let i = 0; i < questionCount; i++) { %>
+                    <div class="form-group">
+                        <label for="questionTextField">Question</label>
+                        <input type="text" class="form-control"
+                        id="questionTextField"
+                        placeholder="Enter your Question"
+                        name="<%= 'question' + (i + 1) %>" 
+                        value="<%= survey.questions[i] %>"
+                        required>
+                    </div>
+                    <% } %>
+                    <div style="margin-top: 2%; text-align: center;">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-edit"></i> Save Survey
+                        </button>
+                        <a href="/survey-list" class="btn btn-warning">
+                            <i class="fas fa-undo"></i> Cancel
+                        </a>
+                    </div> 
+                </form>
+                <% } %>
+                    
+               
+            </div>
+
         </div>
-    </div>
-</div>
+    </div>    

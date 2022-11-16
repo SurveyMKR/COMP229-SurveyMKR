@@ -13,22 +13,47 @@ export function DisplaySurveysList(req, res, next){
 }
 
 export function DisplaySurveysAddPage(req, res, next){
-    res.render('index', { title: 'Add Survey', page: 'surveys/add', survey: {} , displayName: UserDisplayName(req)});
+    let type = req.params.type;
+    let questionCount = req.body.questionCount
+   
+    res.render('index', { title: 'Add Survey', page: 'surveys/add', survey: {} , displayName: UserDisplayName(req), surveyType: type, questionCount: questionCount});
+    
 }
 
 export function ProcessSurveysAddPage(req, res, next){
+    let questionCount = req.params.questionCount
+    console.log(questionCount);
+    let questionList = [];
+    for (let i = 0; i < questionCount; i++) {
+        questionList[i] = eval('req.body.question' + (i + 1));
+        console.log(questionList[i]);
+       
+        
+    }
+    let answerList = [];
+
+    if (req.params.type == 'mc') {
+        for (let i = 0; i < questionCount * 4; i++) {
+            answerList[i] = eval('req.body.answer' + (i + 1));
+        }
+    }
+    if (req.params.type == 'ad') {
+        for (let i = 0; i < questionCount * 2; i++) {
+            if (i % 2 == 0) {
+                answerList[i] = 'Agree';
+            }
+            else {
+                answerList[i] = 'Disagree';
+            }
+            
+        }
+    }
     
     let newSurvey = surveyModel({
-        type: "MC",
-        questions: [
-            {
-                question: req.body.question,
-                answer1: req.body.answer1,
-                answer2: req.body.answer2,
-                answer3: req.body.answer3,
-                answer4: req.body.answer4
-            }
-        ]
+        name: req.body.surveyName,
+        type: req.params.type,
+        questions: questionList,
+        answers: answerList
         
     });
 
@@ -44,33 +69,52 @@ export function ProcessSurveysAddPage(req, res, next){
 
 export function DisplaySurveysEditPage(req, res, next){
     let id = req.params.id;
-
+    let type = req.params.type;
     surveyModel.findById(id, (err, survey) => {
         if(err){
             console.error(err);
             res.end(err);
         }
-
-        res.render('index', { title: 'Edit Survey', page: 'surveys/edit', survey: survey, displayName: UserDisplayName(req) });
+        let questionCount = survey.questions.length;
+        res.render('index', { title: 'Edit Survey', page: 'surveys/edit', survey: survey, displayName: UserDisplayName(req), surveyType: type, questionCount: questionCount});
     });    
 }
 
 export function ProcessSurveysEditPage(req, res, next){
 
     let id = req.params.id;
+    let questionList = [];
+    let questionCount = req.params.questionCount;
+    for (let i = 0; i < questionCount; i++) {
+        questionList[i] = eval('req.body.question' + (i + 1));
+        console.log(questionList[i]);  
+    }
     
+    let answerList = [];
+
+    if (req.params.type == 'mc') {
+        for (let i = 0; i < questionCount * 4; i++) {
+            answerList[i] = eval('req.body.answer' + (i + 1));
+        }
+    }
+    
+    if (req.params.type == 'ad') {
+        for (let i = 0; i < questionCount * 2; i++) {
+            if (i % 2 == 0) {
+                answerList[i] = 'Agree';
+            }
+            else {
+                answerList[i] = 'Disagree';
+            }
+            
+        }
+    }
     let newSurvey = surveyModel({
         _id: req.body.id,
-        type: String, 
-        questions:[ 
-           {
-               question: req.body.question,
-               answer1: req.body.answer1,
-               answer2: req.body.answer2,
-               answer3: req.body.answer3,
-               answer4: req.body.answer4
-           }
-       ]
+        name: req.body.surveyName,
+        type: req.params.type, 
+        questions: questionList,
+        answers: answerList
     });
 
     surveyModel.updateOne({_id: id }, newSurvey, (err, Survey) => {

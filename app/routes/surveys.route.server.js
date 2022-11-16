@@ -13,9 +13,12 @@ const router = Router();
 
 router.get('/survey-list', DisplaySurveysList);
 router.get('/survey-add', AuthGuard, DisplaySurveysAddPage);
-router.post('/survey-add', AuthGuard,ProcessSurveysAddPage);
-router.post('/survey-edit/:id', AuthGuard,ProcessSurveysEditPage);
-router.get('/survey-edit/:id', AuthGuard,DisplaySurveysEditPage);
-router.get('/survey-delete/:id', AuthGuard,ProcessSurveysDelete);
+router.get('/survey-add/:type', AuthGuard, DisplaySurveysAddPage);
+router.post('/survey-add/:type', AuthGuard, DisplaySurveysAddPage);
+router.post('/survey-add/:type/:questionCount', AuthGuard,ProcessSurveysAddPage);
+router.post('/survey-edit/:id/:type/:questionCount', AuthGuard, ProcessSurveysEditPage);
+router.get('/survey-edit/:id/:type/:questionCount', AuthGuard, DisplaySurveysEditPage);
+router.get('/survey-delete/:id', AuthGuard, ProcessSurveysDelete);
+
 
 export default router;
