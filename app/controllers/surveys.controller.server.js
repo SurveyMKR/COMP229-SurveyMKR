@@ -75,7 +75,14 @@ export function DisplaySurveysEditPage(req, res, next){
             console.error(err);
             res.end(err);
         }
-        let questionCount = survey.questions.length;
+        let questionCount
+        if (req.body.questionCount) {
+            questionCount = req.body.questionCount;
+        }
+        else {
+            questionCount = survey.questions.length;
+        }
+       
         res.render('index', { title: 'Edit Survey', page: 'surveys/edit', survey: survey, displayName: UserDisplayName(req), surveyType: type, questionCount: questionCount});
     });    
 }
