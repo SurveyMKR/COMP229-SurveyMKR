@@ -1,4 +1,7 @@
-body {background: #99C9E4;}
+body {
+  /*background: #99C9E4;*/
+    background-image: url(./images/background.png);
+}
 .btn-primary {background-color: #B0FAFF;
               color: #262B30;
               border-color: #9BF0FA; 
