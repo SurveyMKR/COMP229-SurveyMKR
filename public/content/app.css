@@ -12,3 +12,36 @@ body {
                   margin-right: 40%;
          }
 h5 { color: white;}
+
+/* Login Page */
+.img-container{
+  margin-top: 50px;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.img-circle {
+  border: 5px solid rgba(45,50,54,0.5);
+  border-radius: 100%;
+  transform: rotate(0deg);
+  animation: move 1.5s linear infinite;
+  border-top: 5px solid #99C9E4;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+@keyframes move{
+  to{transform: rotate(360deg);}
+}
+
+.img-logo-top {
+  /* margin-top: 40px; */
+  position: absolute;
+  top: 3px;
+  left: 3px;
+
+}
+.container-login{
+  margin-top: 80px;
+}
