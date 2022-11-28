@@ -13,6 +13,12 @@ body {
          }
 h5 { color: white;}
 
+h2 { 
+  color: black;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  position:fixed;
+  left: 25px;
+}
 /* Logo */
 .img-container{
   margin-top: 20px;
@@ -21,7 +27,14 @@ h5 { color: white;}
   top: 0;
   left: 0;
 }
-
+.H3{
+  right: 25px;
+}
+.img-profile{
+  height: 355;
+  width: 555;
+  float: right;
+}
 .img-circle {
   border: 5px solid rgba(45,50,54,0.5);
   border-radius: 100%;
