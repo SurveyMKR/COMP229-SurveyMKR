@@ -5,7 +5,9 @@ import {  DisplaySurveysList,
     ProcessSurveysAddPage, 
     ProcessSurveysEditPage, 
     DisplaySurveysEditPage, 
-    ProcessSurveysDelete } from "../controllers/surveys.controller.server.js";
+    ProcessSurveysDelete,
+    DisplaySurveysRespondPage, 
+    ProcesSurveysRespondPage} from "../controllers/surveys.controller.server.js";
 
 import { AuthGuard } from "../utils/index.js";
 
@@ -22,6 +24,7 @@ router.get('/survey-edit/:id/:type', AuthGuard, DisplaySurveysEditPage);
 router.get('/survey-edit/:id', AuthGuard, DisplaySurveysEditPage);
 router.post('/survey-edit/:id/:type/:mcCount/:adCount/:saCount', AuthGuard, ProcessSurveysEditPage);
 router.get('/survey-delete/:id', AuthGuard, ProcessSurveysDelete);
-
+router.get('/survey-respond/:id/:type', DisplaySurveysRespondPage);
+router.post('/survey-respond/:id/:type/:mcCount/:adCount/:saCount', ProcesSurveysRespondPage);
 
 export default router;

@@ -48,7 +48,7 @@ export function ProcessSurveysAddPage(req, res, next){
             adQuestionList[i] = eval('req.body.adQuestion' + (i + 1));   
      }
     }
-
+    
     let saQuestionList = [];
     if (req.params.type.includes('sa')) {
         for (let i = 0; i < saCount; i++) {
@@ -56,7 +56,6 @@ export function ProcessSurveysAddPage(req, res, next){
         }
 
     }
-    
     
     let newSurvey = surveyModel({
         name: req.body.surveyName,
@@ -187,5 +186,85 @@ export function ProcessSurveysDelete(req, res, next){
 
         res.redirect('/survey-list');
     })
+}
+
+export function DisplaySurveysRespondPage(req, res, next) {
+    let id = req.params.id;
+    let type = req.params.type;
+
+    surveyModel.findById(id, (err, survey) => {
+        if(err){
+            console.error(err);
+            res.end(err);
+        }
+        
+
+        let mcCount = survey.mcQuestions.length;
+       
+        let adCount = survey.adQuestions.length;
+       
+        let saCount = survey.saQuestions.length;;
+       
+        res.render('index', { title: 'Respond to Survey', page: 'surveys/respond', survey: survey, displayName: UserDisplayName(req), surveyType: String(type), mcCount: mcCount, adCount: adCount, saCount: saCount });
+        
+    });
+}
+export function ProcesSurveysRespondPage(req, res, next) {
+    let mcCount = req.params.mcCount;
+    let adCount = req.params.adCount;
+    let saCount = req.params.saCount
+    let id = req.params.id;
+
+    let mcResponseList = [];
+    if (req.params.type.includes('mc')) {
+        for (let i = 0; i < mcCount * 4; i++) {
+            mcResponseList[i] = eval('req.body.mcResponse' + (i + 1));
+        }
+    }
+
+    let adResponseList = [];
+    if (req.params.type.includes('ad')) {
+        for (let i = 0; i < adCount; i++) {
+            adResponseList[i] = eval('req.body.adResponse' + (i + 1));   
+     }
+    }
+
+    let saResponseList = [];
+    if (req.params.type.includes('sa')) {
+        for (let i = 0; i < saCount; i++) {
+            saResponseList[i] = eval('req.body.saResponse' + (i + 1));   
+        }
+    }
+    
+    surveyModel.findById(id, (err, survey) => {
+        if(err){
+            console.error(err);
+            res.end(err);
+        }
+    
+        let newSurvey = surveyModel({
+            _id: id,
+            type: survey.type,
+            name: req.body.surveyName,
+            mcQuestions: survey.mcQuestions,
+            mcAnswers: survey.mcAnswers,
+            mcResponses: mcResponseList,
+            adQuestions: survey.adQuestions,
+            adResponses: adResponseList,
+            saQuestions: survey.saQuestions,
+            saResponses: saResponseList
+            
+        });
+
+    
+        surveyModel.updateOne({_id: id }, newSurvey, (err, Survey) => {
+            if(err){
+                console.error(err);
+                res.end(err);
+            };
+
+            res.redirect('/survey-list')
+        } );
+    });
 }
 

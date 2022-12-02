@@ -27,7 +27,7 @@
                     <% for(let count = 0; count < surveys.length; count++) { %>
                         <tr>
                             <th scope="row" class="text-center"><%= count + 1 %></th>
-                            <td><%= surveys[count].name %></td>
+                            <td><a href="/survey-respond/<%= surveys[count]._id %>/<%= surveys[count].type %>"><%= surveys[count].name %></td>
                             <td><%= surveys[count].type %></td>
                             <td><%= surveys[count].mcQuestions.length + surveys[count].adQuestions.length + surveys[count].saQuestions.length %></td>
                             
