@@ -29,7 +29,7 @@
                             <th scope="row" class="text-center"><%= count + 1 %></th>
                             <td><%= surveys[count].name %></td>
                             <td><%= surveys[count].type %></td>
-                            <td><%= surveys[count].questions.length %></td>
+                            <td><%= surveys[count].mcQuestions.length + surveys[count].adQuestions.length + surveys[count].saQuestions.length %></td>
                             
                             <% if(displayName) { %>
                             

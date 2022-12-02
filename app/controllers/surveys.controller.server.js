@@ -9,51 +9,62 @@ export function DisplaySurveysList(req, res, next){
         }
 
         res.render('index', {title: 'Survey List', page: 'surveys/list', surveys: surveysCollection, displayName: UserDisplayName(req)});
-    })
+    });
+   
 }
 
 export function DisplaySurveysAddPage(req, res, next){
     let type = req.params.type;
-    let questionCount = req.body.questionCount
+    let mcCount = req.body.mcCount;
+    let adCount = req.body.adCount;
+    let saCount = req.body.saCount;
    
-    res.render('index', { title: 'Add Survey', page: 'surveys/add', survey: {} , displayName: UserDisplayName(req), surveyType: type, questionCount: questionCount});
+    res.render('index', { title: 'Add Survey', page: 'surveys/add', survey: {} , displayName: UserDisplayName(req), surveyType: String(type), mcCount: mcCount, adCount: adCount, saCount: saCount });
     
 }
 
 export function ProcessSurveysAddPage(req, res, next){
-    let questionCount = req.params.questionCount
-    console.log(questionCount);
-    let questionList = [];
-    for (let i = 0; i < questionCount; i++) {
-        questionList[i] = eval('req.body.question' + (i + 1));
-        console.log(questionList[i]);
-       
-        
+    let mcCount = req.params.mcCount;
+    let adCount = req.params.adCount;
+    let saCount = req.params.saCount
+    
+    let mcQuestionList = [];
+    if (req.params.type.includes('mc')) {
+        for (let i = 0; i < mcCount; i++) {
+            mcQuestionList[i] = eval('req.body.mcQuestion' + (i + 1));
+        }
     }
-    let answerList = [];
 
-    if (req.params.type == 'mc') {
-        for (let i = 0; i < questionCount * 4; i++) {
-            answerList[i] = eval('req.body.answer' + (i + 1));
+    let mcAnswerList = [];
+    if (req.params.type.includes('mc')) {
+        for (let i = 0; i < mcCount * 4; i++) {
+            mcAnswerList[i] = eval('req.body.mcAnswer' + (i + 1));
         }
     }
-    if (req.params.type == 'ad') {
-        for (let i = 0; i < questionCount * 2; i++) {
-            if (i % 2 == 0) {
-                answerList[i] = 'Agree';
-            }
-            else {
-                answerList[i] = 'Disagree';
-            }
-            
-        }
+
+    let adQuestionList = [];
+    if (req.params.type.includes('ad')) {
+        for (let i = 0; i < adCount; i++) {
+            adQuestionList[i] = eval('req.body.adQuestion' + (i + 1));   
+     }
     }
+
+    let saQuestionList = [];
+    if (req.params.type.includes('sa')) {
+        for (let i = 0; i < saCount; i++) {
+            saQuestionList[i] = eval('req.body.saQuestion' + (i + 1));   
+        }
+
+    }
+    
     
     let newSurvey = surveyModel({
         name: req.body.surveyName,
         type: req.params.type,
-        questions: questionList,
-        answers: answerList
+        mcQuestions: mcQuestionList,
+        mcAnswers: mcAnswerList,
+        adQuestions: adQuestionList,
+        saQuestions: saQuestionList
         
     });
 
@@ -75,55 +86,86 @@ export function DisplaySurveysEditPage(req, res, next){
             console.error(err);
             res.end(err);
         }
-        let questionCount
-        if (req.body.questionCount) {
-            questionCount = req.body.questionCount;
+        
+
+        let mcCount;
+        if (req.body.mcCount) {
+            mcCount = req.body.mcCount;
         }
         else {
-            questionCount = survey.questions.length;
+            mcCount = survey.mcQuestions.length;
         }
        
-        res.render('index', { title: 'Edit Survey', page: 'surveys/edit', survey: survey, displayName: UserDisplayName(req), surveyType: type, questionCount: questionCount});
-    });    
+        let adCount;
+        if (req.body.adCount) {
+            adCount = req.body.adCount;
+        }
+        else {
+            adCount = survey.adQuestions.length;
+        }
+
+        let saCount;
+        if (req.body.saCount) {
+            saCount = req.body.saCount;
+        }
+        else {
+            saCount = survey.saQuestions.length;
+        }
+        res.render('index', { title: 'Edit Survey', page: 'surveys/edit', survey: survey, displayName: UserDisplayName(req), surveyType: String(type), mcCount: mcCount, adCount: adCount, saCount: saCount });
+        
+    });
+        
 }
 
 export function ProcessSurveysEditPage(req, res, next){
 
-    let id = req.params.id;
-    let questionList = [];
-    let questionCount = req.params.questionCount;
-    for (let i = 0; i < questionCount; i++) {
-        questionList[i] = eval('req.body.question' + (i + 1));
-        console.log(questionList[i]);  
+    let mcCount = req.params.mcCount;
+    let adCount = req.params.adCount;
+    let saCount = req.params.saCount
+  
+    let mcQuestionList = [];
+    if (req.params.type.includes('mc')) {
+        for (let i = 0; i < mcCount; i++) {
+            mcQuestionList[i] = eval('req.body.mcQuestion' + (i + 1));
+           
+        }
     }
-    
-    let answerList = [];
 
-    if (req.params.type == 'mc') {
-        for (let i = 0; i < questionCount * 4; i++) {
-            answerList[i] = eval('req.body.answer' + (i + 1));
+    let mcAnswerList = [];
+    if (req.params.type.includes('mc')) {
+        for (let i = 0; i < mcCount * 4; i++) {
+            mcAnswerList[i] = eval('req.body.mcAnswer' + (i + 1));
+        }
+    }
+
+    let adQuestionList = [];
+    if (req.params.type.includes('ad')) {
+        for (let i = 0; i < adCount; i++) {
+            adQuestionList[i] = eval('req.body.adQuestion' + (i + 1));   
+     }
+    }
+
+    let saQuestionList = [];
+    if (req.params.type.includes('sa')) {
+        for (let i = 0; i < saCount; i++) {
+            saQuestionList[i] = eval('req.body.saQuestion' + (i + 1));   
         }
     }
     
-    if (req.params.type == 'ad') {
-        for (let i = 0; i < questionCount * 2; i++) {
-            if (i % 2 == 0) {
-                answerList[i] = 'Agree';
-            }
-            else {
-                answerList[i] = 'Disagree';
-            }
-            
-        }
-    }
+    
+    
     let newSurvey = surveyModel({
-        _id: req.body.id,
+        _id: req.params.id,
         name: req.body.surveyName,
-        type: req.params.type, 
-        questions: questionList,
-        answers: answerList
+        type: req.params.type,
+        mcQuestions: mcQuestionList,
+        mcAnswers: mcAnswerList,
+        adQuestions: adQuestionList,
+        saQuestions: saQuestionList
+        
     });
 
+    let id = req.params.id;
     surveyModel.updateOne({_id: id }, newSurvey, (err, Survey) => {
         if(err){
             console.error(err);
@@ -131,7 +173,7 @@ export function ProcessSurveysEditPage(req, res, next){
         };
 
         res.redirect('/survey-list')
-    } )
+    } );
 }
 
 export function ProcessSurveysDelete(req, res, next){
