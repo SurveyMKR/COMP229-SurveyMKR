@@ -245,13 +245,12 @@ export function ProcesSurveysRespondPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        let expiry = new Date();
-        expiry.setDate(expiry.getDate() + 30);
+        
         let newSurvey = surveyModel({
             _id: id,
             type: survey.type,
             name: req.body.surveyName,
-            expireAt: expiry,
+            expireAt: survey.expireAt,
             mcQuestions: survey.mcQuestions,
             mcAnswers: survey.mcAnswers,
             mcResponses: mcResponseList,
