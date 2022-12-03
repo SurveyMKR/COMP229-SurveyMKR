@@ -56,10 +56,12 @@ export function ProcessSurveysAddPage(req, res, next){
         }
 
     }
-    
+    let expiry = new Date();
+        expiry.setDate(expiry.getDate() + 30);
     let newSurvey = surveyModel({
         name: req.body.surveyName,
         type: req.params.type,
+        expireAt: expiry,
         mcQuestions: mcQuestionList,
         mcAnswers: mcAnswerList,
         adQuestions: adQuestionList,
@@ -152,11 +154,13 @@ export function ProcessSurveysEditPage(req, res, next){
     }
     
     
-    
+    let expiry = new Date();
+        expiry.setDate(expiry.getDate() + 30);
     let newSurvey = surveyModel({
         _id: req.params.id,
         name: req.body.surveyName,
         type: req.params.type,
+        expireAt: expiry,
         mcQuestions: mcQuestionList,
         mcAnswers: mcAnswerList,
         adQuestions: adQuestionList,
@@ -241,11 +245,13 @@ export function ProcesSurveysRespondPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-    
+        let expiry = new Date();
+        expiry.setDate(expiry.getDate() + 30);
         let newSurvey = surveyModel({
             _id: id,
             type: survey.type,
             name: req.body.surveyName,
+            expireAt: expiry,
             mcQuestions: survey.mcQuestions,
             mcAnswers: survey.mcAnswers,
             mcResponses: mcResponseList,

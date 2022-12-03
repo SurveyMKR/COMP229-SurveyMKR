@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const SurveySchema = new Schema({
     name: String,
     type: String, 
+    expireAt: Date,
     mcQuestions: [],
     mcAnswers: [],
     mcResponses: [],
