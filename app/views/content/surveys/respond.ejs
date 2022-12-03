@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-bottom: 5%;">
     <div class="row">
         <div class="offset-md-3 col-md-6">
             <h1 style="text-align: center;"><%= title %></h1>
@@ -16,57 +16,53 @@
 
                 <% if (surveyType.includes('mc')) { let j = 1; %>
                     <% for (let i = 0; i < mcCount; i++) {  %>
-                    <div class="form-group">
-                        <label for="<%= 'mcResponse' + j %>"><%= survey.mcQuestions[i] %>:</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="<%= 'mcResponse' + j %>">A) <%= survey.mcAnswers[j - 1] %></label>
-                        <input type="text" class="form-control"
-                        id="<%= 'mcResponse' + j %>"
-                      
-                        name="<%= 'mcResponse' + j %>" 
-                       
-                        required>
-                        </input>
-                        <% j++; %>
-                    </div>
+                        <span><%= survey.mcQuestions[i] %></span>
+                        <div class="btn-group btn-group-toggle" class="form-group" style="display: flex; flex-direction:column;">
+                                
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control">A) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"
+                                name="<%= 'mcResponse' + (i + 1) %>" 
+                                value="A) <%= survey.mcAnswers[j - 1] %>"
+                                required>
+                                </input></label>
+                                
+                                <% j++; %>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="<%= 'mcResponse' + j %>">B) <%= survey.mcAnswers[j - 1] %></label>
-                        <input type="text" class="form-control"
-                        id="<%= 'mcResponse' + j %>"
-                        placeholder="Enter Response"
-                        name="<%= 'mcResponse' + j %>" 
-                       
-                        required> 
-                        </input>
-                        <% j++; %>
-                    </div>
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control" >B) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"                               
+                                name="<%= 'mcResponse' + (i + 1) %>" 
+                                value="B) <%= survey.mcAnswers[j - 1] %>"
+                                required> 
+                                </input></label>
+                                
+                                <% j++; %>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="<%= 'mcResponse' + j %>">C) <%= survey.mcAnswers[j - 1] %></label>
-                        <input type="text" class="form-control"
-                        id="<%= 'mcResponse' + j %>"
-                        placeholder="Enter Response"
-                        name="<%= 'mcResponse' + j %>"  
-                                     
-                        required>
-                        </input>
-                        <% j++; %>
-                    </div>
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control">C) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"
+                                name="<%= 'mcResponse' + (i + 1) %>"
+                                value="C) <%= survey.mcAnswers[j - 1] %>"  
+                                required>
+                                </input></label>
+                               
+                                <% j++; %>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="<%= 'mcResponse' + j + 'TextField' %>">D) <%= survey.mcAnswers[j - 1] %></label>
-                        <input type="text" class="form-control"
-                        id="<%= 'mcResponse' + j + 'TextField' %>"
-                        placeholder="Enter Response"
-                        name="<%= 'mcResponse' + j %>" 
-    
-                        required>
-                        </input>
-                        <% j++; %>
-                    </div>
-            
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control">D) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"                                
+                                name="<%= 'mcResponse' + (i + 1) %>"
+                                value="D) <%= survey.mcAnswers[j - 1] %>" 
+                                required>
+                                </input></label>
+                                
+                                <% j++; %>
+                            </div>
+                        </div>
                     <% } %>
                     
                 <% } %>

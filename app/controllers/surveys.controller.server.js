@@ -217,7 +217,7 @@ export function ProcesSurveysRespondPage(req, res, next) {
 
     let mcResponseList = [];
     if (req.params.type.includes('mc')) {
-        for (let i = 0; i < mcCount * 4; i++) {
+        for (let i = 0; i < mcCount; i++) {
             mcResponseList[i] = eval('req.body.mcResponse' + (i + 1));
         }
     }
