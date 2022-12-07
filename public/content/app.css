@@ -6,6 +6,12 @@ body {
               color: #262B30;
               border-color: #9BF0FA; 
             }
+
+.btn-secondary {background-color: #B0FAFF;
+                color: #262B30;
+                border-color: #9BF0FA; 
+             }
+
 #allPage { /* Center the page */
                   width: 1000px;
                   margin-left: 30%;
