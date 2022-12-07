@@ -1,0 +1,125 @@
+<div class="container" style="margin-bottom: 5%;">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1 style="text-align: center;"><%= title %></h1>
+            </form>
+                <form class="form" method="POST" action="<%= '/survey-respond/' + survey._id + '/' + survey.type + '/' + survey.mcQuestions.length + '/' + survey.adQuestions.length + '/' + survey.saQuestions.length %>">
+                    
+                    <% if (mcCount) { %>
+                        <div class="input-group mb-3" style="margin: 2%; margin-left: auto; margin-right: auto;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-top-right-radius: 0%; border-bottom-right-radius: 0%;" id="basic-addon1">Survey Name:</span>
+                            </div>
+                            <span type="text" class="form-control" name="surveyName" ><%= survey.name %></span>
+                        </div>
+                    <% } %>
+
+                <% if (surveyType.includes('mc')) { let j = 1; %>
+                    <% for (let i = 0; i < mcCount; i++) {  %>
+                        <span><%= survey.mcQuestions[i] %></span>
+                        <div class="btn-group btn-group-toggle" class="form-group" style="display: flex; flex-direction:column;">
+                                
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control">A) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"
+                                name="<%= 'mcResponse' + (i + 1) %>" 
+                                value="A) <%= survey.mcAnswers[j - 1] %>"
+                                required>
+                                </input></label>
+                                
+                                <% j++; %>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control" >B) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"                               
+                                name="<%= 'mcResponse' + (i + 1) %>" 
+                                value="B) <%= survey.mcAnswers[j - 1] %>"
+                                required> 
+                                </input></label>
+                                
+                                <% j++; %>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control">C) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"
+                                name="<%= 'mcResponse' + (i + 1) %>"
+                                value="C) <%= survey.mcAnswers[j - 1] %>"  
+                                required>
+                                </input></label>
+                               
+                                <% j++; %>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="<%= 'mcResponse' + (i + 1) %>" style="text-align: left;" class="form-control">D) <span style='margin-left: 3%'><%= survey.mcAnswers[j - 1] %>  </span><input type="radio" 
+                                id="<%= 'mcResponse' + (i + 1) %>"                                
+                                name="<%= 'mcResponse' + (i + 1) %>"
+                                value="D) <%= survey.mcAnswers[j - 1] %>" 
+                                required>
+                                </input></label>
+                                
+                                <% j++; %>
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                <% } %>
+                <% if (surveyType.includes('ad')) { %>
+                    <% for (let i = 0; i < adCount; i++) { %>
+                    <div class="btn-group btn-group-toggle" class="form-group" style="display: flex; flex-direction:column">
+                        <span><%= survey.adQuestions[i] %></span>
+                       
+                        <label for="<%= 'adResponse' + (i + 1) %>" class="form-control" style="text-align: center;">agree <input type="radio" 
+                            id="<%= 'adAnswer' + (i + 1) %>"
+                           
+                            name="<%= 'adResponse' + (i + 1) %>" 
+                            value="<%= (i % 2 == 0) ? 'agree' : 'disagree' %>"
+                            onclick="checked"
+                            required></input></label>
+                        
+                        
+                        
+                        <label for="<%= 'adResponse' + (i + 1) %>" class="form-control" style="text-align: center;">disagree  <input type="radio" 
+                            id="<%= 'adResponse' + (i + 1) %>"
+                        
+                            name="<%= 'adResponse' + (i + 1) %>" 
+                            value="<%= (i % 2 == 0) ? 'agree' : 'disagree' %>"
+                            onclick="checked"
+                            required></input></label>
+                        
+                       
+                    </div>
+                    <% } %>
+                    
+                <% } %>
+                <% if (surveyType.includes('sa')) { %>
+                    <% for (let i = 0; i < saCount; i++) { %>
+                    <div class="form-group">
+                        <label for="<%= 'saResponse' + (i + 1) %>"><%= survey.saQuestions[i] %></label>
+                        <input type="textArea" class="form-control"
+                        id="<%= 'saResponse' + (i + 1) %>"
+                        placeholder="Enter your Response"
+                        name="<%= 'saResponse' + (i + 1) %>" 
+                        required>
+                    </div>
+                    <% } %>
+                    
+                <% } %>
+                 <%  if (surveyType) { %>
+                    <div style="margin-top: 2%; text-align: center;">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-edit"></i> Save Survey
+                        </button>
+                        <a href="/survey-list" class="btn btn-warning">
+                            <i class="fas fa-undo"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+                <% } %>
+               
+            </div>
+
+        </div>
+    </div>    

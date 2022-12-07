@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-bottom: 5%;">
     <h1>Choose Survey</h1>
     <% if(displayName) { %>
     <a href="/survey-add" class="btn btn-primary" role="button">
@@ -27,9 +27,9 @@
                     <% for(let count = 0; count < surveys.length; count++) { %>
                         <tr>
                             <th scope="row" class="text-center"><%= count + 1 %></th>
-                            <td><%= surveys[count].name %></td>
+                            <td><a href="/survey-respond/<%= surveys[count]._id %>/<%= surveys[count].type %>"><%= surveys[count].name %></td>
                             <td><%= surveys[count].type %></td>
-                            <td><%= surveys[count].questions.length %></td>
+                            <td><%= surveys[count].mcQuestions.length + surveys[count].adQuestions.length + surveys[count].saQuestions.length %></td>
                             
                             <% if(displayName) { %>
                             

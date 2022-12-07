@@ -5,8 +5,15 @@ const Schema = mongoose.Schema;
 const SurveySchema = new Schema({
     name: String,
     type: String, 
-    questions: [],
-    answers: []
+    expireAt: Date,
+    mcQuestions: [],
+    mcAnswers: [],
+    mcResponses: [],
+    adQuestions: [],
+    adResponses: [],
+    saQuestions: [],
+    saResponses: []
+    
 }, 
 {
     timestamps: true,

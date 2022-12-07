@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-bottom: 5%;">
     <div class="row">
         <div class="offset-md-3 col-md-6">
             <h1 style="text-align: center;"><%= title %></h1>
@@ -7,39 +7,56 @@
                 <div style="margin-top: 2%; text-align: center;">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                       
-                        <label class="btn btn-secondary <%= (surveyType == 'mc') ? 'active' : ''; %>">
-                            <input type="radio" value="mc" name="options" id="option1" autocomplete="off" onclick="window.location='/survey-add/mc';" <%= (surveyType == 'mc') ? 'checked' :'' %>> 
+                        <label class="btn btn-secondary <%= (surveyType.includes('mc')) ? 'active' : ''; %>">
+                            <input type="checkbox" value="mc" name="options" id="option1" autocomplete="off" onclick="window.location=<%= (surveyType.includes('mc')) ? "'/survey-add/" + surveyType.replace('mc','') + "'" : (surveyType != 'undefined') ? "'/survey-add/mc" + surveyType + "'" : "'/survey-add/mc'" %>;" %> <%= (surveyType.includes('mc')) ? 'checked' :'' %>> 
                                 Multiple Choice
                         </label>
                      
-                        <label class="btn btn-secondary <%= (surveyType == 'ad') ? 'active' : ''; %>">
-                            <input type="radio" value="ad" name="options" id="option2" autocomplete="off" onclick="window.location='/survey-add/ad';" <%= (surveyType == 'ad') ? 'checked' :'' %>>
+                        <label class="btn btn-secondary <%= (surveyType.includes('ad')) ? 'active' : ''; %>">
+                            <input type="checkbox" value="ad" name="options" id="option2" autocomplete="off" onclick="window.location=<%= (surveyType.includes('ad')) ? "'/survey-add/" + surveyType.replace('ad','') + "'" : (surveyType != 'undefined') ? "'/survey-add/ad" + surveyType + "'" : "'/survey-add/ad'" %>;" <%= (surveyType.includes('ad')) ? 'checked' :'' %>>
                                 Agree/Disagree
                         </label>
                         
-                        <label class="btn btn-secondary <%= (surveyType == 'sa') ? 'active' : ''; %>">
-                            <input type="radio" value="sa" name="options" id="option3" autocomplete="off" onclick="window.location='/survey-add/sa';" <%= (surveyType == 'sa') ? 'checked' :'' %>>
+                        <label class="btn btn-secondary <%= (surveyType.includes('sa')) ? 'active' : ''; %>">
+                            <input type="checkbox" value="sa" name="options" id="option3" autocomplete="off" onclick="window.location=<%= (surveyType.includes('sa')) ? "'/survey-add/" + surveyType.replace('sa','') + "'" : (surveyType != 'undefined') ? "'/survey-add/sa" + surveyType + "'" : "'/survey-add/sa'" %>;" <%= (surveyType.includes('sa')) ? 'checked' :'' %>>
                                 Short Answer
                         </label>
                     </div>
                 </div>
-                <% if (surveyType) { %>
-                <div class="input-group mb-3" style="margin: 2%; margin-left: auto; margin-right: auto;">
+                <% if (surveyType.includes('mc')) { %>
+                <div class="input-group mb-3" style="margin: 2%; margin-left: auto; margin-right: auto; display: flex; flex-direction: column;">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="border-top-right-radius: 0%; border-bottom-right-radius: 0%;" id="basic-addon1">Number of Questions:</span>
+                        <span class="input-group-text" id="basic-addon1">Number of Questions:</span>
+                        <input type="number" class="form-control" name="mcCount" min="1" placeholder="Enter desired number of Multiple Choice questions">
                     </div>
-                        <input type="number" class="form-control" name="questionCount" min="1" placeholder="Enter desired number of Survey questions">
-                        <div onclick="window.location='<%= '/survey-add/' + surveyType + '/' + questionCount; %>'">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-edit"></i> Confirm
-                    </button>
-                        </div>
-                </div>
                 <% } %>
+                <% if (surveyType.includes('ad')) { %>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Number of Questions:</span>
+                        
+                            <input type="number" class="form-control" name="adCount" min="1" placeholder="Enter desired number of Agree/Disagree questions">  
+                    </div>
+                <% } %>
+                 <% if (surveyType.includes('sa')) { %>
+                    <div class="input-group-prepend" class="questionCountInputs">
+                        <span class="input-group-text" id="basic-addon1">Number of Questions:</span>
+                       
+                            <input type="number" class="form-control" name="saCount" min="1" placeholder="Enter desired number of Short Answer questions">
+                    </div>
+                <% } %>
+                <% if (surveyType != 'undefined') { %>
+                    <div style="margin-left: auto; margin-right: auto; margin-top: 2%;">
+                        <button type="submit" class="btn btn-primary" >
+                            <i class="fas fa-edit"></i> Confirm
+                        </button>
+                    </div>
+                
+                <% } %>
+            </div>
             </form>
-                <form class="form" method="POST" action="<%= '/survey-add/' + surveyType + '/' + questionCount %>">
+                <form class="form" method="POST" action="<%= '/survey-add/' + surveyType + '/' + mcCount + '/' + adCount + '/' + saCount %>">
                     <input type="hidden" name="id" value="<%= survey._id %>" >
-                    <% if (questionCount) { %>
+                    <% if (mcCount) { %>
                         <div class="input-group mb-3" style="margin: 2%; margin-left: auto; margin-right: auto;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="border-top-right-radius: 0%; border-bottom-right-radius: 0%;" id="basic-addon1">Survey Name:</span>
@@ -48,84 +65,92 @@
                         </div>
                     <% } %>
 
-                <% if (surveyType == "mc") { let j = 1; %>
-                    <% for (let i = 0; i < questionCount; i++) {  %>
+                <% if (surveyType.includes('mc')) { let j = 1; %>
+                    <% for (let i = 0; i < mcCount; i++) {  %>
                     <div class="form-group">
-                        <label for="<%= 'question' + (i + 1) + 'TextField' %>">Question <%= i + 1 %></label>
+                        <label for="<%= 'question' + (i + 1) + 'TextField' %>">Multiple Choice Question <%= i + 1 %>:</label>
                         <input type="text" class="form-control"
                         id="<%= 'question' + (i + 1) + 'TextField' %>"
-                        placeholder="Enter your Question"
-                        name="<%= 'question' + (i + 1) %>" 
+                        placeholder="Enter Multiple Choice Question <%= i + 1%>"
+                        name="<%= 'mcQuestion' + (i + 1) %>" 
                        
                         required>
                         </input>
                     </div>
                     <div class="form-group">
-                        <label for="<%= 'answer' + j + 'TextField' %>">A</label>
+                        <label for="<%= 'mcAnswer' + j + 'TextField' %>">A</label>
                         <input type="text" class="form-control"
-                        id="<%= 'answer' + j + 'TextField' %>"
+                        id="<%= 'mcAnswer' + j + 'TextField' %>"
                         placeholder="Enter Answer"
-                        name="<%= 'answer' + j %>" 
+                        name="<%= 'mcAnswer' + j %>" 
                         required>
                         </input>
                         <% j++; %>
                     </div>
 
                     <div class="form-group">
-                        <label for="<%= 'answer' + j + 'TextField' %>">B</label>
+                        <label for="<%= 'mcAnswer' + j + 'TextField' %>">B</label>
                         <input type="text" class="form-control"
-                        id="<%= 'answer' + j + 'TextField' %>"
+                        id="<%= 'mcAnswer' + j + 'TextField' %>"
                         placeholder="Enter Answer"
-                        name="<%= 'answer' + j %>" 
+                        name="<%= 'mcAnswer' + j %>" 
                         required>
                         </input>
                         <% j++; %>
                     </div>
 
                     <div class="form-group">
-                        <label for="<%= 'answer' + j + 'TextField' %>">C</label>
+                        <label for="<%= 'mcAnswer' + j + 'TextField' %>">C</label>
                         <input type="text" class="form-control"
-                        id="<%= 'answer' + j + 'TextField' %>"
+                        id="<%= 'mcAnswer' + j + 'TextField' %>"
                         placeholder="Enter Answer"
-                        name="<%= 'answer' + j %>"                     
+                        name="<%= 'mcAnswer' + j %>"                     
                         required>
                         </input>
                         <% j++; %>
                     </div>
 
                     <div class="form-group">
-                        <label for="<%= 'answer' + j + 'TextField' %>">D</label>
+                        <label for="<%= 'mcAnswer' + j + 'TextField' %>">D</label>
                         <input type="text" class="form-control"
-                        id="<%= 'answer' + j + 'TextField' %>"
+                        id="<%= 'mcAnswer' + j + 'TextField' %>"
                         placeholder="Enter Answer"
-                        name="<%= 'answer' + j %>" 
+                        name="<%= 'mcAnswer' + j %>" 
                         required>
                         </input>
                         <% j++; %>
                     </div>
             
                     <% } %>
-                    <div style="margin-top: 2%; text-align: center;">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-edit"></i> Save Survey
-                        </button>
-                        <a href="/survey-list" class="btn btn-warning">
-                            <i class="fas fa-undo"></i> Cancel
-                        </a>
-                    </div>
-                </form>
+                    
                 <% } %>
-                <% if (surveyType == "ad" || surveyType == "sa") { %>
-                    <% for (let i = 0; i < questionCount; i++) { %>
+                <% if (surveyType.includes('ad')) { %>
+                    <% for (let i = 0; i < adCount; i++) { %>
                     <div class="form-group">
-                        <label for="questionTextField">Question</label>
+                        <label for="<%= 'adQuestion' + (i + 1) %>">Enter Agree/Disagree Question <%= i + 1 %>:</label>
                         <input type="text" class="form-control"
-                        id="questionTextField"
+                        id="<%= 'adQuestion' + (i + 1) %>"
                         placeholder="Enter your Question"
-                        name="<%= 'question' + (i + 1) %>" 
+                        name="<%= 'adQuestion' + (i + 1) %>" 
                         required>
                     </div>
                     <% } %>
+                    
+                <% } %>
+                <% if (surveyType.includes('sa')) { %>
+                    <% for (let i = 0; i < saCount; i++) { %>
+                    <div class="form-group">
+                        <label for="<%= 'saQuestion' + (i + 1) %>">Enter Short Answer Question <%= i + 1 %>:</label>
+                        <input type="text" class="form-control"
+                        id="<%= 'saQuestion' + (i + 1) %>"
+                        placeholder="Enter your Question"
+                        name="<%= 'saQuestion' + (i + 1) %>" 
+                        required>
+                    </div>
+                    <% } %>
+                    
+                <% } %>
+                 <%  if (surveyType) { %>
                     <div style="margin-top: 2%; text-align: center;">
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-edit"></i> Save Survey
@@ -133,10 +158,9 @@
                         <a href="/survey-list" class="btn btn-warning">
                             <i class="fas fa-undo"></i> Cancel
                         </a>
-                    </div> 
+                    </div>
                 </form>
                 <% } %>
-                    
                
             </div>
 
