@@ -29,7 +29,7 @@ h5 { color: white;}
 }
 .img-profile{
   
-  
+  padding-bottom: 50;
   position: relative;
  
   left: 550;
@@ -107,7 +107,12 @@ h5 { color: white;}
 .user-input{
   margin-bottom: 7px;
 }
+h4 {color:rgba(45, 50, 54, 0.85);
 
-
+   }
+h1 {color:rgba(45, 50, 54, 0.85);
+  ;
+    }
+ 
 
 
