@@ -6,6 +6,12 @@ body {
               color: #262B30;
               border-color: #9BF0FA; 
             }
+
+.btn-secondary {background-color: #B0FAFF;
+                color: #262B30;
+                border-color: #9BF0FA; 
+             }
+
 #allPage { /* Center the page */
                   width: 1000px;
                   margin-left: 30%;
@@ -13,12 +19,6 @@ body {
          }
 h5 { color: white;}
 
-h2 { 
-  color: black;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  position:fixed;
-  left: 25px;
-}
 /* Logo */
 .img-container{
   margin-top: 20px;
@@ -27,14 +27,15 @@ h2 {
   top: 0;
   left: 0;
 }
-.H3{
-  right: 25px;
-}
 .img-profile{
-  height: 355;
-  width: 555;
-  float: right;
+  
+  padding-bottom: 50;
+  position: relative;
+ 
+  left: 550;
+
 }
+
 .img-circle {
   border: 5px solid rgba(45,50,54,0.5);
   border-radius: 100%;
@@ -106,7 +107,12 @@ h2 {
 .user-input{
   margin-bottom: 7px;
 }
+h4 {color:rgba(45, 50, 54, 0.85);
 
-
+   }
+h1 {color:rgba(45, 50, 54, 0.85);
+  ;
+    }
+ 
 
 
