@@ -19,6 +19,10 @@ body {
          }
 h5 { color: white;}
 
+.container-mid {
+  display: flex;
+}
+
 /* Logo */
 .img-container{
   margin-top: 20px;
@@ -27,17 +31,14 @@ h5 { color: white;}
   top: 0;
   left: 0;
 }
-.img-profile{
-  
-  padding-bottom: 50;
-  position: relative;
- 
-  left: 550;
-
+.img-profile{  
+  padding-bottom: 50px;
+  padding-left: 100px;
+  justify-content: space-between;
 }
 
 .img-circle {
-  border: 5px solid rgba(45,50,54,0.5);
+  border: 5px solid rgba(45,50,54,0.5);          
   border-radius: 100%;
   transform: rotate(0deg);
   animation: move 1.5s linear infinite;
@@ -46,7 +47,7 @@ h5 { color: white;}
   top: 0;
   left: 0;
 }
-@keyframes move{
+@keyframes move{                                             
   to{transform: rotate(360deg);}
 }
 
